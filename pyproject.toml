@@ -22,6 +22,7 @@ streamlit = "^1.33.0"
 streamlit-chat = "^0.1.1"
 tqdm = "^4.66.2"
 langchain-pinecone = "^0.1.0"
+python-dotenv = "^1.0.1"
 
 
 [tool.poetry.group.dev.dependencies]
