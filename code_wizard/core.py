@@ -2,6 +2,7 @@ import os
 from typing import Any
 from dotenv import load_dotenv
 from langchain.chains.retrieval_qa.base import RetrievalQA
+from langchain_community.llms.ollama import Ollama
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_pinecone import PineconeVectorStore
 from pinecone import Pinecone
@@ -21,7 +22,8 @@ def run_llm(query: str) -> Any:
         index_name=INDEX_NAME, embedding=embeddings
     )
 
-    chat = ChatOpenAI(openai_api_key=openai_api_key, verbose=True, temperature=0)
+    # chat = ChatOpenAI(openai_api_key=openai_api_key, verbose=True, temperature=0)
+    chat = Ollama(model="llama3:8b")
 
     qa = RetrievalQA.from_chain_type(
         llm=chat,
