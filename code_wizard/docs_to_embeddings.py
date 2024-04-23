@@ -1,16 +1,16 @@
 import os
 from dotenv import load_dotenv
-import pinecone
 from langchain_pinecone import PineconeVectorStore
 from langchain_community.document_loaders import ReadTheDocsLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
+from pinecone import Pinecone
+
+from consts import INDEX_NAME
 
 load_dotenv()
 pinecone_api_key = os.environ.get("PINECONE_API_KEY")
-pc = pinecone.Pinecone(
-    api_key=pinecone_api_key, environment="northamerica-northeast1-gcp"
-)
+pc = Pinecone(api_key=pinecone_api_key, environment="northamerica-northeast1-gcp")
 
 
 def docs_to_embeddings() -> None:
@@ -47,7 +47,7 @@ def docs_to_embeddings() -> None:
     docsearch = PineconeVectorStore.from_documents(
         documents=documents,
         embedding=embeddings,
-        index_name="langchain-doc-index",
+        index_name=INDEX_NAME,
     )
     print("****** Added to Pinecone Vectorstore ******")
 
