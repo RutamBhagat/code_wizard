@@ -19,10 +19,6 @@ def docs_to_embeddings() -> None:
         current_dir,
         "..",
         "langchain_docs",
-        "langchain-docs",
-        "api.python.langchain.com",
-        "en",
-        "latest",
     )
 
     loader = ReadTheDocsLoader(path=docs_path)
@@ -33,13 +29,8 @@ def docs_to_embeddings() -> None:
         chunk_size=1000, chunk_overlap=100, separators=["\n\n", "\n", " ", ""]
     )
     documents = text_splitter.split_documents(documents=raw_documents)
-    print(f"Splitted into {len(documents)} chunks")
 
-    for doc in documents:
-        old_path = doc.metadata["source"]
-        new_url = "https://" + old_path.split("langchain-docs/")[-1]
-        doc.metadata.update({"source": new_url})
-    print(f"Going to insert {len(documents)} to Pinecone")
+    print(f"Going to insert {len(documents)} Documents to Pinecone")
 
     openai_api_key = os.environ.get("OPENAI_API_KEY")
     embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
