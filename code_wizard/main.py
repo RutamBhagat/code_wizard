@@ -1,4 +1,3 @@
-import time
 from typing import Set
 import streamlit as st
 from streamlit_chat import message
@@ -25,18 +24,23 @@ if "user_prompt_history" not in st.session_state:
 if "chat_answers_history" not in st.session_state:
     st.session_state["chat_answers_history"] = []
 
+if "chat_history" not in st.session_state:
+    st.session_state["chat_history"] = []
+
 if prompt:
     with st.spinner("Generating Response..."):
-        response = run_llm(query=prompt)
+        response = run_llm(query=prompt, chat_history=st.session_state["chat_history"])
         sources = set(
             doc.metadata.get("source") for doc in response.get("source_documents", [])
         )
         formatted_response = (
-            f"{response.get('result', '')} \n\n {create_sources_string(sources)}"
+            f"{response.get('answer', '')} \n\n {create_sources_string(sources)}"
         )
 
         st.session_state["user_prompt_history"].append(prompt)
         st.session_state["chat_answers_history"].append(formatted_response)
+        st.session_state["chat_history"].append((prompt, response.get("answer", "")))
+
 
 if st.session_state["chat_answers_history"]:
     st.subheader("Chat History")
