@@ -22,7 +22,6 @@ def create_sources_string(sources: Set[str]) -> str:
 @router.post("/process", status_code=status.HTTP_201_CREATED)
 def create_new_todo(query_request: Query_Request):
     chat_history = query_request.chat_history
-    chat_history.pop()
     formatted_chat_history = []
     it = iter(chat_history)
     for user, bot in zip(it, it):
