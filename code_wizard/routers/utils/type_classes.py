@@ -10,6 +10,6 @@ class Query_Request(BaseModel):
         json_schema_extra = {
             "example": {
                 "query": "What is the weather?",
-                "chat_history": [("User", "Hello, how can I help you?")],
+                "chat_history": [("System", "Hello, how can I help you?")],
             }
         }
