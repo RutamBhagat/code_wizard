@@ -1,5 +1,5 @@
 import os
-from typing import Any, List, Tuple
+from typing import Any, List
 from dotenv import load_dotenv
 from langchain.chains.conversational_retrieval.base import ConversationalRetrievalChain
 from langchain_community.llms.ollama import Ollama
@@ -14,7 +14,8 @@ pinecone_api_key = os.environ.get("PINECONE_API_KEY")
 pc = Pinecone(api_key=pinecone_api_key, environment="northamerica-northeast1-gcp")
 
 
-def run_llm(query: str, chat_history: List[Tuple[str, str]] = []) -> Any:
+def run_llm(query: str, chat_history: List[Any] = []) -> Any:
+    # print("Chat History: ", chat_history)
     openai_api_key = os.environ.get("OPENAI_API_KEY")
     embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
 

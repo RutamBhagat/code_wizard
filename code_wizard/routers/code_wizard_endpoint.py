@@ -2,6 +2,7 @@ from typing import Set
 from fastapi import APIRouter, status
 
 from code_wizard.core import run_llm
+
 from code_wizard.routers.utils.type_classes import Query_Request
 
 
@@ -19,10 +20,15 @@ def create_sources_string(sources: Set[str]) -> str:
 
 
 @router.post("/process", status_code=status.HTTP_201_CREATED)
-async def create_new_todo(query_request: Query_Request):
-    response = run_llm(
-        query=query_request.query, chat_history=query_request.chat_history
-    )
+def create_new_todo(query_request: Query_Request):
+    chat_history = query_request.chat_history
+    chat_history.pop()
+    formatted_chat_history = []
+    it = iter(chat_history)
+    for user, bot in zip(it, it):
+        formatted_chat_history.append((user["content"], bot["content"]))
+
+    response = run_llm(query=query_request.query, chat_history=formatted_chat_history)
     sources = set(
         doc.metadata.get("source") for doc in response.get("source_documents", [])
     )
