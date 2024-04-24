@@ -1,52 +1,26 @@
-from typing import Set
-import streamlit as st
-from streamlit_chat import message
-from code_wizard.core import run_llm
+from fastapi import FastAPI
+from code_wizard.routers import code_wizard_endpoint
+from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
 
 
-def create_sources_string(sources: Set[str]) -> str:
-    if not sources:
-        return ""
+load_dotenv()
 
-    sources_list = sorted(sources)
-    return "Sources: \n" + "\n".join(
-        f"{i+1}. {source}" for i, source in enumerate(sources_list)
-    )
+app = FastAPI()
 
+app = FastAPI()
 
-st.header("Code Wizard: Langchain Documentation Helper 🤖")
+# Add CORS middleware to allow all origins
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
 
-prompt = st.text_input("Prompt", placeholder="Enter your prompt here...")
-
-if "user_prompt_history" not in st.session_state:
-    st.session_state["user_prompt_history"] = []
-
-if "chat_answers_history" not in st.session_state:
-    st.session_state["chat_answers_history"] = []
-
-if "chat_history" not in st.session_state:
-    st.session_state["chat_history"] = []
-
-if prompt:
-    with st.spinner("Generating Response..."):
-        response = run_llm(query=prompt, chat_history=st.session_state["chat_history"])
-        sources = set(
-            doc.metadata.get("source") for doc in response.get("source_documents", [])
-        )
-        formatted_response = (
-            f"{response.get('answer', '')} \n\n {create_sources_string(sources)}"
-        )
-
-        st.session_state["user_prompt_history"].append(prompt)
-        st.session_state["chat_answers_history"].append(formatted_response)
-        st.session_state["chat_history"].append((prompt, response.get("answer", "")))
-
-
-if st.session_state["chat_answers_history"]:
-    st.subheader("Chat History")
-    for user_prompt, chat_answer in zip(
-        st.session_state["user_prompt_history"],
-        st.session_state["chat_answers_history"],
-    ):
-        message(user_prompt, is_user=True)
-        message(chat_answer)
+app.include_router(
+    code_wizard_endpoint.router,
+    prefix="/code_wizard_endpoint",
+    tags=["code_wizard_endpoint"],
+)
