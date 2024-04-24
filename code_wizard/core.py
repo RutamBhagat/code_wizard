@@ -15,7 +15,8 @@ pc = Pinecone(api_key=pinecone_api_key, environment="northamerica-northeast1-gcp
 
 
 def run_llm(query: str, chat_history: List[Any] = []) -> Any:
-    # print("Chat History: ", chat_history)
+    print("Query: ", query)
+    print("Chat History: ", chat_history)
     openai_api_key = os.environ.get("OPENAI_API_KEY")
     embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
 

@@ -20,18 +20,24 @@ def create_sources_string(sources: Set[str]) -> str:
 
 
 @router.post("/process", status_code=status.HTTP_201_CREATED)
-def create_new_todo(query_request: Query_Request):
+def create_new_query(query_request: Query_Request):
     chat_history = query_request.chat_history
     formatted_chat_history = []
-    it = iter(chat_history)
-    for user, bot in zip(it, it):
-        formatted_chat_history.append((user["content"], bot["content"]))
+
+    for i in range(0, len(chat_history), 2):
+        if i + 1 >= len(chat_history):
+            formatted_chat_history.append((chat_history[i], ""))
+        else:
+            formatted_chat_history.append((chat_history[i], chat_history[i + 1]))
 
     response = run_llm(query=query_request.query, chat_history=formatted_chat_history)
+
     sources = set(
         doc.metadata.get("source") for doc in response.get("source_documents", [])
     )
+
     formatted_response = (
-        f"{response.get('answer', '')} \n\n {create_sources_string(sources)}"
+        f"{response.get('answer', '')} \\n\\n {create_sources_string(sources)}"
     )
+
     return formatted_response
