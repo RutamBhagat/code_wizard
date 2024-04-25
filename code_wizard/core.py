@@ -2,7 +2,6 @@ import os
 from typing import Any, List
 from dotenv import load_dotenv
 from langchain.chains.conversational_retrieval.base import ConversationalRetrievalChain
-from langchain_community.llms.ollama import Ollama
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_pinecone import PineconeVectorStore
 from pinecone import Pinecone
@@ -27,7 +26,6 @@ def run_llm(query: str, chat_history: List[Any] = []) -> Any:
     )
 
     chat = ChatOpenAI(openai_api_key=openai_api_key, verbose=True, temperature=0)
-    # chat = Ollama(model="llama3:8b")
 
     qa = ConversationalRetrievalChain.from_llm(
         llm=chat,
