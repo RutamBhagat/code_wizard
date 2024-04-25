@@ -26,12 +26,12 @@ def run_llm(query: str, chat_history: List[Any] = []) -> Any:
         index_name=INDEX_NAME, embedding=embeddings
     )
 
-    # chat = ChatOpenAI(openai_api_key=openai_api_key, verbose=True, temperature=0)
-    chat = Ollama(model="llama3:8b")
+    chat = ChatOpenAI(openai_api_key=openai_api_key, verbose=True, temperature=0)
+    # chat = Ollama(model="llama3:8b")
 
     qa = ConversationalRetrievalChain.from_llm(
         llm=chat,
-        chain_type="map_reduce",
+        chain_type="stuff",
         retriever=docsearch.as_retriever(),
         return_source_documents=True,
     )
