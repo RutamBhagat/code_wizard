@@ -21,13 +21,8 @@ def create_new_query(query_request: Query_Request):
 
     response = run_llm(query=query_request.query, chat_history=formatted_chat_history)
 
-    sources = set(
-        doc.metadata.get("source") for doc in response.get("source_documents", [])
-    )
-
-    formatted_response = f"{response.get('answer', '')}"
     end_time = perf_counter()
     elapsed_time = end_time - start_time
 
     print(f"Execution time: {elapsed_time:.4f} seconds")
-    return formatted_response
+    return response.get('answer', '')

@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "buildCommand": "pip install uvicorn",
+  "builds": [
+    {
+      "src": "/code_wizard/main.py",
+      "use": "@vercel/python",
+      "config": { "maxLambdaSize": "50mb", "runtime": "python 3.11" }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/code_wizard/main.py"
+    }
+  ]
+}

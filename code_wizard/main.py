@@ -1,12 +1,11 @@
+import uvicorn
 from fastapi import FastAPI
-from code_wizard.routers import code_wizard_endpoint
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
+from code_wizard.routers import code_wizard_endpoint
 
 
 load_dotenv()
-
-app = FastAPI()
 
 app = FastAPI()
 
@@ -24,3 +23,9 @@ app.include_router(
     prefix="/code_wizard_endpoint",
     tags=["code_wizard_endpoint"],
 )
+
+PORT = 8000
+HOST = "0.0.0.0"
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host=HOST, port=PORT, reload=True)

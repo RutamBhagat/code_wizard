@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import Any, List, Tuple
+from typing import List
 
 
 class Query_Request(BaseModel):

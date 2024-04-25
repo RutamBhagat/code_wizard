@@ -17,7 +17,6 @@ pinecone-client = "^3.2.2"
 unstructured = "^0.13.3"
 nltk = "^3.8.1"
 fastapi = "^0.110.2"
-uvicorn = "^0.29.0"
 streamlit = "^1.33.0"
 streamlit-chat = "^0.1.1"
 tqdm = "^4.66.2"
@@ -27,6 +26,7 @@ nbconvert = "^7.16.3"
 unstructured-client = "^0.22.0"
 markdown = "^3.6"
 transformers = "^4.40.1"
+uvicorn = "^0.29.0"
 
 
 [tool.poetry.group.dev.dependencies]

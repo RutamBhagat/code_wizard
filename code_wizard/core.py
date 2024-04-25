@@ -1,19 +1,19 @@
 import os
-from typing import Any, List
+from typing import Any, List, Tuple
 from dotenv import load_dotenv
 from langchain.chains.conversational_retrieval.base import ConversationalRetrievalChain
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_pinecone import PineconeVectorStore
 from pinecone import Pinecone
 
-from consts import INDEX_NAME
+from code_wizard.consts import INDEX_NAME
 
 load_dotenv()
 pinecone_api_key = os.environ.get("PINECONE_API_KEY")
 pc = Pinecone(api_key=pinecone_api_key, environment="northamerica-northeast1-gcp")
 
 
-def run_llm(query: str, chat_history: List[Any] = []) -> Any:
+def run_llm(query: str, chat_history: List[Tuple[str, str]] = []) -> str:
     print("Query: ", query)
     print("Chat History: ", chat_history)
     openai_api_key = os.environ.get("OPENAI_API_KEY")
@@ -25,7 +25,12 @@ def run_llm(query: str, chat_history: List[Any] = []) -> Any:
         index_name=INDEX_NAME, embedding=embeddings
     )
 
-    chat = ChatOpenAI(openai_api_key=openai_api_key, verbose=True, temperature=0)
+    chat = ChatOpenAI(
+        openai_api_key=openai_api_key,
+        verbose=True,
+        temperature=0,
+        model_name="gpt-3.5-turbo",
+    )
 
     qa = ConversationalRetrievalChain.from_llm(
         llm=chat,
