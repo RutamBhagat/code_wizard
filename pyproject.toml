@@ -23,6 +23,9 @@ streamlit-chat = "^0.1.1"
 tqdm = "^4.66.2"
 langchain-pinecone = "^0.1.0"
 python-dotenv = "^1.0.1"
+nbconvert = "^7.16.3"
+unstructured-client = "^0.22.0"
+markdown = "^3.6"
 
 
 [tool.poetry.group.dev.dependencies]

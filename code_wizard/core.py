@@ -18,7 +18,9 @@ def run_llm(query: str, chat_history: List[Any] = []) -> Any:
     print("Query: ", query)
     print("Chat History: ", chat_history)
     openai_api_key = os.environ.get("OPENAI_API_KEY")
-    embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
+    embeddings = OpenAIEmbeddings(
+        openai_api_key=openai_api_key, disallowed_special=set()
+    )
 
     docsearch = PineconeVectorStore.from_existing_index(
         index_name=INDEX_NAME, embedding=embeddings
@@ -29,7 +31,7 @@ def run_llm(query: str, chat_history: List[Any] = []) -> Any:
 
     qa = ConversationalRetrievalChain.from_llm(
         llm=chat,
-        chain_type="stuff",
+        chain_type="map_reduce",
         retriever=docsearch.as_retriever(),
         return_source_documents=True,
     )
