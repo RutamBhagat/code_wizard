@@ -4,7 +4,8 @@ Code Wizard is a super cool AI chatbot that helps you learn and use the LangChai
 
 **Link to project:** https://code-wizard-frontend.vercel.app/
 
-![Code Wizard Screenshot](https://i.imgur.com/abcdefg.png)
+![Screenshot 2024-04-27 095234](https://github.com/RutamBhagat/code_wizard_backend/assets/72187009/8c0bc093-2a29-4f00-bedc-1f164eb53b0a)
+
 
 ## How It's Made
 
@@ -40,10 +41,11 @@ Building Code Wizard was an incredible learning experience that taught me so muc
 Check out these example conversations with Code Wizard:
 
 **Understanding Retrieval Augmented Generation (RAG):**
-[https://code-wizard.app/chat/rag-overview](https://code-wizard.app/chat/rag-overview)
+![Screenshot 2024-04-27 095356](https://github.com/RutamBhagat/code_wizard_backend/assets/72187009/d99ab750-2723-4caa-af01-336c38e1c015)
 
-**Building a Question-Answering Chatbot:**
-[https://code-wizard.app/chat/qa-chatbot](https://code-wizard.app/chat/qa-chatbot)
+**What is Langchain:**
+![Screenshot 2024-04-27 095418](https://github.com/RutamBhagat/code_wizard_backend/assets/72187009/38f3bcd2-e135-487b-a81e-5563302f7b04)
 
-**Explaining LangChain's Memory Concepts:**
-[https://code-wizard.app/chat/memory-in-langchain](https://code-wizard.app/chat/memory-in-langchain)
+**Explaining LangChain Expression Language:**
+![Screenshot 2024-04-27 095430](https://github.com/RutamBhagat/code_wizard_backend/assets/72187009/fb16a35e-d619-4332-a3c1-3cc211069c1f)
+
