@@ -34,7 +34,7 @@ def run_llm(query: str, chat_history: List[Tuple[str, str]] = []) -> str:
 
     qa = ConversationalRetrievalChain.from_llm(
         llm=chat,
-        chain_type="map_reduce",
+        chain_type="refine",
         retriever=docsearch.as_retriever(),
         return_source_documents=True,
     )
