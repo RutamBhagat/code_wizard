@@ -3,7 +3,9 @@
 Code Wizard is a super cool AI chatbot that helps you learn and use the LangChain Documentation in an interactive way. Just ask it anything about LangChain concepts or code, and it'll break it down for you in an easy-to-understand way. Built with Next.js, FastAPI, LangChain, and a local LLaMA model.
 
 **Link to project:** https://code-wizard-frontend.vercel.app/
+
 **Frontend Repo:** [https://code-wizard-frontend.vercel.app/](https://github.com/RutamBhagat/code_wizard_frontend)
+
 **Backend Repo:** [https://code-wizard-frontend.vercel.app/](https://github.com/RutamBhagat/code_wizard_backend)
 
 
